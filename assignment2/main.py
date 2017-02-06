@@ -2,6 +2,16 @@ import os
 import webapp2
 from google.appengine.ext.webapp import template
 from google.appengine.ext import ndb
+import jinja2
+
+jinja_environment = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
+
+def guestbook_key(guestbook_name='default_guestbook'):
+    return ndb.Key('Guestbook', guestbook_name)
 
 
 class Greeting(ndb.Model):
@@ -12,11 +22,17 @@ class Greeting(ndb.Model):
 class MainPage(webapp2.RequestHandler):
     def get(self):
         """Return a friendly HTTP greeting."""
-        path = os.path.join(os.path.dirname(__file__), 'index.html')
-        self.response.out.write(template.render(path, {}))
+        greetings_query = Greeting.query(
+            ancestor=guestbook_key()).order(-Greeting.date)
+        greetings = greetings_query.fetch(10)
+        template = jinja_environment.get_template('index.html')
+        self.response.out.write(template.render(entries=greetings))
 
-        # self.response.headers['Content-Type'] = 'text/plain'
-        # self.response.write('Hello, World!')
+    def post(self):
+        greeting = Greeting(parent=guestbook_key())
+        greeting.content = self.request.get('question2')
+        greeting.put()
+        self.redirect('/')
 
 
 class Clear(webapp2.RequestHandler):
