@@ -30,7 +30,8 @@ class MainPage(webapp2.RequestHandler):
 
     def post(self):
         greeting = Greeting(parent=guestbook_key())
-        greeting.content = self.request.get('question2')
+        json_string = self.request.get('data')
+        greeting.content = json_string.get("question2")
         greeting.put()
         self.redirect('/')
 
