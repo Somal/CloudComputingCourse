@@ -1,9 +1,8 @@
 import os
-import webapp2
-from google.appengine.ext.webapp import template
-from google.appengine.ext import ndb
+
 import jinja2
-import json
+import webapp2
+from google.appengine.ext import ndb
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -44,10 +43,12 @@ class Clear(webapp2.RequestHandler):
         ndb.delete_multi(greetings_query)
         self.redirect('/')
 
+
 class Results(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('results.html')
         self.response.out.write(template.render(entries=None))
+
 
 def handle_404(request, response, exception):
     """Return a custom 404 error."""
