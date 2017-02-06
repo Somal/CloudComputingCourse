@@ -18,8 +18,44 @@
 <script>
     $(document).ready(function () {
         Survey.Survey.cssType = "bootstrap";
-	var surveyJSON2 = {pages:[{name:"page1",questions:[{type:"html",html:"Good day! The Poporo project is dedicated to improving customer satisfaction. Through this brief survey, your answers will be helpful in enhancing our services and meeting your needs. Your response will only be used for survey purposes.",name:"question1"},{type:"text",commentText:"W",name:"question4",size:"2",title:"Rate this project form 0 to 10",validators:[{type:"numeric",maxValue:"10",minValue:"0"}]},{type:"comment",name:" Can you briefly describe your experience in this project?",validators:[{type:"text",maxLength:"256"}]},{type:"text",name:"Tell us about the issues you faced while using the application",size:"256"},{type:"radiogroup",choices:[{value:"1",text:"Never"},{value:"2",text:"Maximum couple of times"},{value:"3",text:"Sometimes"},{value:"4",text:"Often"},{value:"5",text:"On a daily basis"}],title:"How often would you like to use this service?"},{type:"radiogroup",choices:[{value:"1",text:"Yes"},{value:"2",text:"No"}],name:"question2",title:"Would you recommend this project to your friends ?"}]}]}
-  
+        var surveyJSON2 = {
+            pages: [{
+                name: "page1",
+                questions: [{
+                    type: "html",
+                    html: "Good day! The Poporo project is dedicated to improving customer satisfaction. Through this brief survey, your answers will be helpful in enhancing our services and meeting your needs. Your response will only be used for survey purposes.",
+                    name: "question1"
+                }, {
+                    type: "text",
+                    commentText: "W",
+                    name: "question4",
+                    size: "2",
+                    title: "Rate this project form 0 to 10",
+                    validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
+                }, {
+                    type: "comment",
+                    name: " Can you briefly describe your experience in this project?",
+                    validators: [{type: "text", maxLength: "256"}]
+                }, {
+                    type: "text",
+                    name: "Tell us about the issues you faced while using the application",
+                    size: "256"
+                }, {
+                    type: "radiogroup",
+                    choices: [{value: "1", text: "Never"}, {value: "2", text: "Sometimes"}, {
+                        value: "3",
+                        text: "Often"
+                    }],
+                    name: "question6",
+                    title: "How often would you like to use this service?"
+                }, {
+                    type: "radiogroup",
+                    choices: [{value: "1", text: "Yes"}, {value: "2", text: "No"}],
+                    name: "question2",
+                    title: "Would you recommend this project to your friends ?"
+                }]
+            }]
+        }
 
 
         var surveyJSON = {
@@ -45,9 +81,9 @@
 
         function sendDataToServer(survey) {
             //send Ajax request to your web server.
-	    data = JSON.stringify(survey.data)
+            data = JSON.stringify(survey.data)
             $.post("/", {data: data})
-	    console.log("The results are:" + JSON.stringify(survey.data));
+            console.log("The results are:" + JSON.stringify(survey.data));
             return false;
         }
 
