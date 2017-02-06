@@ -1,16 +1,16 @@
-application: your-app-id
+application: survey 
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+- url: /static
+  static_dir: static
 
 - url: /.*
-  script: guestbook.application
+  script: main.application
+
 
 libraries:
 - name: webapp2

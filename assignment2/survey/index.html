@@ -1,0 +1,35 @@
+<head>
+  
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+</head>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>        
+
+
+        
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+<script src="/static/survey.js"></script>
+
+<div id="surveyContainer"></div>
+
+<script>
+$(document).ready(function(){
+Survey.Survey.cssType = "bootstrap";
+
+var surveyJSON = {pages:[{name:"page1",questions:[{type:"checkbox",choices:["one",{value:"two",text:"second value"},{value:"three",text:"third value"}],name:"question1"},{type:"dropdown",choices:["one",{value:"two",text:"second value"},{value:"three",text:"third value"}],name:"question2"},{type:"matrixdropdown",choices:[1,2,3,4,5],columns:[{name:"Column 1"},{name:"Column 2"},{name:"Column 3"}],name:"question3",rows:["Row 1","Row 2"]}]}]}
+
+function sendDataToServer(survey) {
+    //send Ajax request to your web server.
+    alert("The results are:" + JSON.stringify(survey.data));
+    return false;
+}
+
+var survey = new Survey.Model(surveyJSON);
+$("#surveyContainer").Survey({
+    model: survey,
+    onComplete: sendDataToServer
+});
+})
+</script>
