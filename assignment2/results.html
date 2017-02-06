@@ -1,0 +1,32 @@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<div id="login_form">
+<br>
+Username: <input type="text" id="username"><br>
+<br>
+Password: <input type="password" id="pass"><br>
+<input type="button" id="go" value="Login">
+</div>
+
+<div id="data" style="display:none">
+Some data
+
+</div>
+
+<script>
+$(document).ready(function(){
+	$("#go").click(function(){
+		var uname = $("#username").val()
+		var pass = $("#pass").val()
+		console.log(uname, pass)
+		if(uname == 'root' && pass == 'root'){
+			$("#login_form").hide("fast")
+			$("#data").show("fast")	
+		} else
+			alert("Wrong credentials")
+	})
+
+})
+
+</script>
