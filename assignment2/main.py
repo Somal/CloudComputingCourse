@@ -17,11 +17,7 @@ def guestbook_key(guestbook_name='default_guestbook'):
 
 class Greeting(ndb.Model):
     date = ndb.DateTimeProperty(auto_now_add=True)
-    question1 = ndb.IntegerProperty()
-    question2 = ndb.StringProperty()
-    question3 = ndb.StringProperty()
-    question4 = ndb.StringProperty()
-    question5 = ndb.StringProperty()
+    content = ndb.StringProperty()
 
 
 class MainPage(webapp2.RequestHandler):
@@ -35,8 +31,8 @@ class MainPage(webapp2.RequestHandler):
 
     def post(self):
         greeting = Greeting(parent=guestbook_key())
-        response = json.loads(self.request.get('data'))
-        greeting.content = response.items()[0][1]
+        # response = json.loads(self.request.get('data'))
+        greeting.content = self.request.get('data')
         greeting.put()
         self.redirect('/')
 
