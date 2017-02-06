@@ -3,6 +3,7 @@ import webapp2
 from google.appengine.ext.webapp import template
 from google.appengine.ext import ndb
 import jinja2
+import json
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -15,8 +16,12 @@ def guestbook_key(guestbook_name='default_guestbook'):
 
 
 class Greeting(ndb.Model):
-    content = ndb.StringProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
+    question1 = ndb.IntegerProperty()
+    question2 = ndb.StringProperty()
+    question3 = ndb.StringProperty()
+    question4 = ndb.StringProperty()
+    question5 = ndb.StringProperty()
 
 
 class MainPage(webapp2.RequestHandler):
@@ -30,7 +35,8 @@ class MainPage(webapp2.RequestHandler):
 
     def post(self):
         greeting = Greeting(parent=guestbook_key())
-        greeting.content = self.request.items()[0][1]
+        response = json.loads(self.request.get('data'))
+        greeting.content = response.items()[0][1]
         greeting.put()
         self.redirect('/')
 
