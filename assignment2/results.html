@@ -22,8 +22,8 @@
 {% endfor %}
 
 <div id="meta">
-  Mean: {{ entries['meta']['mean'] }} <br> <hr>
-  {% for key, value in entries['meta'].iteritems() %}
+  Mean: {{ entries['statistics']['mean'] }} <br> <hr>
+  {% for key, value in entries['statistics'].iteritems() %}
      {% if key != 'mean' %}
        {{ key }}: 
 	<ul> 

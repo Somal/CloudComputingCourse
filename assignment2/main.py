@@ -69,16 +69,21 @@ class Results(webapp2.RequestHandler):
             for k in question5_distribution.keys():
                 question5_distribution[k] = question5_distribution[k] / count
 
-<<<<<<< HEAD
-            statistics = {'mean': mean, 'question2_distribution': question2_distribution,
-                          'question6_distribution': question6_distribution}
-            result = {"data": responses, "meta": statistics}
-=======
+            names = {"question1": "Rate this project form 0 to 10",
+                     "question2": "Can you briefly describe your experience in this project?",
+                     "question3": "Tell us about the issues you faced while using the application",
+                     "question4": "How often would you like to use this service?",
+                     "question5": "Would you recommend this project to your friends ?"}
+            renamed_responses = []
+            for r in responses:
+                row = {}
+                for k, v in r.items():
+                    row[names[k]] = v
+                renamed_responses.append(row)
+
             statistics = {'mean': mean, 'question4_distribution': question4_distribution,
                           'question5_distribution': question5_distribution}
-            result = {"data": responses, "statistics": statistics}
-        print(result)
->>>>>>> cbd12e5e95332efa180202ca6e60e1a9a6573030
+            result = {"data": renamed_responses, "statistics": statistics}
         self.response.out.write(template.render(entries=result))
 
 
