@@ -9,8 +9,21 @@
 </div>
 
 <div id="data" style="display:none">
-    Some data
+{% for item in data['data'] %}
+<div>
+  <ul>
+      {% for key, value in item.iteritems() %}
+            <li>{{ key }} : {{ value }} </li>
+      {% endfor %}
+  <ul>
+  
+<hr>
+</div>
+{% endfor %}
 
+<div id="meta">
+  Mean: {{ data['meta']['mean'] }}
+</div>
 </div>
 
 <script>
