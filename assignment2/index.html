@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 
 <script src="/static/survey.js"></script>
-
+ <div ><input type="button" id="go_trans" value="ru"> <input type="button" id="go_trans_en" value="en"></div>
 <div id="surveyContainer"></div>
 
 <script>
@@ -58,27 +58,6 @@
         }
 
 
-        var surveyJSON = {
-            pages: [{
-                name: "page1",
-                questions: [{
-                    type: "checkbox",
-                    choices: ["one", {value: "two", text: "second value"}, {value: "three", text: "third value"}],
-                    name: "question1"
-                }, {
-                    type: "dropdown",
-                    choices: ["one", {value: "two", text: "second value"}, {value: "three", text: "third value"}],
-                    name: "question2"
-                }, {
-                    type: "matrixdropdown",
-                    choices: [1, 2, 3, 4, 5],
-                    columns: [{name: "Column 1"}, {name: "Column 2"}, {name: "Column 3"}],
-                    name: "question3",
-                    rows: ["Row 1", "Row 2"]
-                }]
-            }]
-        }
-
         function sendDataToServer(survey) {
             //send Ajax request to your web server.
             data = JSON.stringify(survey.data)
@@ -94,3 +73,109 @@
         });
     })
 </script>
+
+ <div id="surveyContainerRus" style="display:none"></div>
+
+    <script>
+        $(document).ready(function () {
+            Survey.Survey.cssType = "bootstrap";
+            var surveyJSON2 =
+                {
+                    pages: [{
+                        name: "page1",
+                        questions: [{
+                            type: "html",
+                            html: "Добрый день! Проект Poporo посвящен повышению удовлетворенности клиентов. С помощью этого краткого обзора, ваши ответы будут полезны в улучшении наших услуг и удовлетворения ваших потребностей. Ваш ответ будет использоваться только для целей обследования.",
+                            name: "question1"
+                        }, {
+                            type: "text",
+                            commentText: "W",
+                            name: "question4",
+                            size: "2",
+                            title: "Оцените этот проект от 0 до 10 .",
+                            validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
+                        }, {
+                            type: "comment",
+                            name: "Кратко опишите ваш опыт в этом проекте ?",
+                            validators: [{type: "text", maxLength: "256"}]
+                        }, {
+                            type: "text",
+                            name: "Расскажите о проблемах с которыми вы столкнулись используя приложение",
+                            size: "256"
+                        },
+                         {
+                            type: "radiogroup",
+                            choices: [{value: "1", text: "Никогда"}, {value: "2", text: "Иногда"}, {
+                                value: "3",
+                                text: "Часто"
+                            }],
+                            name: "question6",
+                            title: "Как часто вы бы хотели использовать этот сервис ?"
+                        },{
+                            type: "radiogroup",
+                            choices: [{value: "1", text: "Да"}, {value: "2", text: "Нет"}],
+                            name: "question2",
+                            title: "Будите ли вы рекомендовать этот проект своим друзьям ?"
+                        }]
+                    }]
+                }
+
+          
+    
+            function sendDataToServer(survey) {
+                //send Ajax request to your web server.
+                data = JSON.stringify(survey.data)
+                $.post("/", {data: data})
+                console.log("The results are:" + JSON.stringify(survey.data));
+                return false;
+            }
+
+            var survey = new Survey.Model(surveyJSON2);
+            $("#surveyContainerRus").Survey({
+                model: survey,
+                onComplete: sendDataToServer
+            });
+        })
+    </script>
+
+    <script>
+
+
+
+
+    $(document).ready(function () {
+        $("#go_trans").click(function () {
+	if($("#surveyContainer").offsetParent){
+                $("#surveyContainer").hide("fast")
+                $("#surveyContainerRus").show("fast")
+            }else {
+                 $("#surveyContainerRus").hide("fast")
+                $("#surveyContainer").show("fast")
+            }            
+           
+        })
+
+    })
+
+</script>
+   <script>
+
+
+
+    $(document).ready(function () {
+        $("#go_trans_en").click(function () {
+            if($("#surveyContainerRus").offsetParent){
+                $("#surveyContainerRus").hide("fast")
+                $("#surveyContainer").show("fast")
+            }else {
+                 $("#surveyContainer").hide("fast")
+                $("#surveyContainerRus").show("fast")
+            }
+           
+        })
+
+    })
+
+
+</script>
+
