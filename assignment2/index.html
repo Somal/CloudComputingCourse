@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 
 <script src="/static/survey.js"></script>
- <div id="langs"><input type="button" id="go_trans" value="ru"> <input type="button" id="go_trans_en" value="en"></div>
+<div id="langs"><input type="button" id="go_trans" value="ru"> <input type="button" id="go_trans_en" value="en"></div>
 <div id="surveyContainer"></div>
 
 <script>
@@ -27,6 +27,7 @@
                     name: "question0"
                 }, {
                     type: "text",
+                    isRequired: true,
                     commentText: "W",
                     name: "question1",
                     size: "2",
@@ -34,16 +35,19 @@
                     validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
                 }, {
                     type: "comment",
+                    isRequired: true,
                     title: " Can you briefly describe your experience in this project?",
                     name: "question2",
                     validators: [{type: "text", maxLength: "256"}]
                 }, {
                     type: "text",
+                    isRequired: true,
                     title: "Tell us about the issues you faced while using the application",
                     name: "question3",
                     size: "256"
                 }, {
                     type: "radiogroup",
+                    isRequired: true,
                     choices: [{value: "1", text: "Never"}, {value: "2", text: "Sometimes"}, {
                         value: "3",
                         text: "Often"
@@ -52,6 +56,7 @@
                     title: "How often would you like to use this service?"
                 }, {
                     type: "radiogroup",
+                    isRequired: true,
                     choices: [{value: "1", text: "Yes"}, {value: "2", text: "No"}],
                     name: "question5",
                     title: "Would you recommend this project to your friends ?"
@@ -64,7 +69,7 @@
             //send Ajax request to your web server.
             data = JSON.stringify(survey.data)
             $.post("/", {data: data})
-	    $("#langs").hide()
+            $("#langs").hide()
             console.log("The results are:" + JSON.stringify(survey.data));
             return false;
         }
@@ -92,6 +97,7 @@
                         name: "question0"
                     }, {
                         type: "text",
+                        isRequired: true,
                         commentText: "W",
                         name: "question1",
                         size: "2",
@@ -99,17 +105,20 @@
                         validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
                     }, {
                         type: "comment",
+                        isRequired: true,
                         title: "Кратко опишите ваш опыт в этом проекте ?",
                         name: "question2",
                         validators: [{type: "text", maxLength: "256"}]
                     }, {
                         type: "text",
+                        isRequired: true,
                         title: "Расскажите о проблемах с которыми вы столкнулись используя приложение",
                         name: "question3",
                         size: "256"
                     },
                         {
                             type: "radiogroup",
+                            isRequired: true,
                             choices: [{value: "1", text: "Никогда"}, {value: "2", text: "Иногда"}, {
                                 value: "3",
                                 text: "Часто"
@@ -118,21 +127,20 @@
                             title: "Как часто вы бы хотели использовать этот сервис ?"
                         }, {
                             type: "radiogroup",
+                            isRequired: true,
                             choices: [{value: "1", text: "Да"}, {value: "2", text: "Нет"}],
                             name: "question5",
                             title: "Будите ли вы рекомендовать этот проект своим друзьям ?"
                         }]
-                    }]
-                }
+                }]
+            }
 
-          
-   	 
 
         function sendDataToServer(survey) {
             //send Ajax request to your web server.
             data = JSON.stringify(survey.data)
             $.post("/", {data: data})
-	    $("#langs").hide()
+            $("#langs").hide()
             console.log("The results are:" + JSON.stringify(survey.data));
             return false;
         }
