@@ -1,4 +1,5 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <div id="login_form">
     <br>
@@ -36,8 +37,41 @@
 
   {% endfor %}
 </div>
+
+<div id="charts">
+{% for key, value in entries['statistics'].iteritems() %}
+	{% if key != 'mean' %}
+		<div id="piechart_{{key}}"></div>
+	{% endif %}
+{% endfor %}
 </div>
 
+</div>
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+	{% for key, value in entries['statistics'].iteritems() %}
+		{% if key != 'mean' %}
+        		var data = google.visualization.arrayToDataTable([
+          			['{{key}}', 'Occurence'],
+				{% for k, v in value.iteritems() %}
+          				['{{k}}',     {{v}}],
+
+				{% endfor %}
+        		]);
+
+        		var options = {
+          			title: '{{key}}'
+        		};
+
+        		var chart = new google.visualization.PieChart(document.getElementById('piechart_{{key}}'));
+
+        		chart.draw(data, options);
+		{% endif %}
+	{% endfor %}
+      }
+    </script>
 <script>
     $(document).ready(function () {
         $("#go").click(function () {
