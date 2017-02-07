@@ -74,6 +74,9 @@
     </script>
 <script>
     $(document).ready(function () {
+
+	$("input").attr("spellcheck", "true");
+	$("textarea").attr("spellcheck", "true");
         $("#go").click(function () {
             var uname = $("#username").val()
             var pass = $("#pass").val()
