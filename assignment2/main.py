@@ -71,7 +71,7 @@ class Results(webapp2.RequestHandler):
 
             statistics = {'mean': mean, 'question2_distribution': question2_distribution,
                           'question6_distribution': question6_distribution}
-            result = {"data": responses, "statistics": statistics}
+            result = {"data": responses, "meta": statistics}
         self.response.out.write(template.render(entries=result))
 
 

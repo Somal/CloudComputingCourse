@@ -9,7 +9,7 @@
 </div>
 
 <div id="data" style="display:none">
-{% for item in data['data'] %}
+{% for item in entries['data'] %}
 <div>
   <ul>
       {% for key, value in item.iteritems() %}
@@ -22,7 +22,19 @@
 {% endfor %}
 
 <div id="meta">
-  Mean: {{ data['meta']['mean'] }}
+  Mean: {{ entries['meta']['mean'] }} <br> <hr>
+  {% for key, value in entries['meta'].iteritems() %}
+     {% if key != 'mean' %}
+       {{ key }}: 
+	<ul> 
+       {% for k, v in value.iteritems() %}
+         <li>{{ k }} : {{ v*100 }}%</li>
+       {% endfor %}
+	</ul>
+       <hr>
+     {% endif %}
+
+  {% endfor %}
 </div>
 </div>
 

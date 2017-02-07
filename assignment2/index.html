@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 
 <script src="/static/survey.js"></script>
- <div ><input type="button" id="go_trans" value="ru"> <input type="button" id="go_trans_en" value="en"></div>
+ <div id="langs"><input type="button" id="go_trans" value="ru"> <input type="button" id="go_trans_en" value="en"></div>
 <div id="surveyContainer"></div>
 
 <script>
@@ -62,6 +62,7 @@
             //send Ajax request to your web server.
             data = JSON.stringify(survey.data)
             $.post("/", {data: data})
+	    $("#langs").hide()
             console.log("The results are:" + JSON.stringify(survey.data));
             return false;
         }
@@ -126,6 +127,7 @@
                 //send Ajax request to your web server.
                 data = JSON.stringify(survey.data)
                 $.post("/", {data: data})
+	    	$("#langs").hide()
                 console.log("The results are:" + JSON.stringify(survey.data));
                 return false;
             }
