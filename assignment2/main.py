@@ -54,24 +54,31 @@ class Results(webapp2.RequestHandler):
             responses = [json.loads(d.content) for d in all_data]
 
             mean = 0
-            question2_distribution = {u"1": 0, u"2": 0, u"3": 0}
-            question6_distribution = {u"1": 0, u"2": 0}
+            question4_distribution = {u"1": 0, u"2": 0, u"3": 0}
+            question5_distribution = {u"1": 0, u"2": 0}
             for r in responses:
-                mean += int(r.get('question4'))
-                question2_distribution[r.get('question2')] += 1
-                question6_distribution[r.get('question6')] += 1
+                mean += int(r.get('question1'))
+                question4_distribution[r.get('question4')] += 1
+                question5_distribution[r.get('question5')] += 1
 
             count = responses.__len__() * 1.0
             mean = mean / count
-            for k in question2_distribution.keys():
-                question2_distribution[k] = question2_distribution[k] / count
+            for k in question4_distribution.keys():
+                question4_distribution[k] = question4_distribution[k] / count
 
-            for k in question6_distribution.keys():
-                question6_distribution[k] = question6_distribution[k] / count
+            for k in question5_distribution.keys():
+                question5_distribution[k] = question5_distribution[k] / count
 
+<<<<<<< HEAD
             statistics = {'mean': mean, 'question2_distribution': question2_distribution,
                           'question6_distribution': question6_distribution}
             result = {"data": responses, "meta": statistics}
+=======
+            statistics = {'mean': mean, 'question4_distribution': question4_distribution,
+                          'question5_distribution': question5_distribution}
+            result = {"data": responses, "statistics": statistics}
+        print(result)
+>>>>>>> cbd12e5e95332efa180202ca6e60e1a9a6573030
         self.response.out.write(template.render(entries=result))
 
 

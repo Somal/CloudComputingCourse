@@ -24,21 +24,23 @@
                 questions: [{
                     type: "html",
                     html: "Good day! The Poporo project is dedicated to improving customer satisfaction. Through this brief survey, your answers will be helpful in enhancing our services and meeting your needs. Your response will only be used for survey purposes.",
-                    name: "question1"
+                    name: "question0"
                 }, {
                     type: "text",
                     commentText: "W",
-                    name: "question4",
+                    name: "question1",
                     size: "2",
                     title: "Rate this project form 0 to 10",
                     validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
                 }, {
                     type: "comment",
-                    name: " Can you briefly describe your experience in this project?",
+                    title: " Can you briefly describe your experience in this project?",
+                    name: "question2",
                     validators: [{type: "text", maxLength: "256"}]
                 }, {
                     type: "text",
-                    name: "Tell us about the issues you faced while using the application",
+                    title: "Tell us about the issues you faced while using the application",
+                    name: "question3",
                     size: "256"
                 }, {
                     type: "radiogroup",
@@ -46,12 +48,12 @@
                         value: "3",
                         text: "Often"
                     }],
-                    name: "question6",
+                    name: "question4",
                     title: "How often would you like to use this service?"
                 }, {
                     type: "radiogroup",
                     choices: [{value: "1", text: "Yes"}, {value: "2", text: "No"}],
-                    name: "question2",
+                    name: "question5",
                     title: "Would you recommend this project to your friends ?"
                 }]
             }]
@@ -75,105 +77,105 @@
     })
 </script>
 
- <div id="surveyContainerRus" style="display:none"></div>
+<div id="surveyContainerRus" style="display:none"></div>
 
-    <script>
-        $(document).ready(function () {
-            Survey.Survey.cssType = "bootstrap";
-            var surveyJSON2 =
-                {
-                    pages: [{
-                        name: "page1",
-                        questions: [{
-                            type: "html",
-                            html: "Добрый день! Проект Poporo посвящен повышению удовлетворенности клиентов. С помощью этого краткого обзора, ваши ответы будут полезны в улучшении наших услуг и удовлетворения ваших потребностей. Ваш ответ будет использоваться только для целей обследования.",
-                            name: "question1"
-                        }, {
-                            type: "text",
-                            commentText: "W",
-                            name: "question4",
-                            size: "2",
-                            title: "Оцените этот проект от 0 до 10 .",
-                            validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
-                        }, {
-                            type: "comment",
-                            name: "Кратко опишите ваш опыт в этом проекте ?",
-                            validators: [{type: "text", maxLength: "256"}]
-                        }, {
-                            type: "text",
-                            name: "Расскажите о проблемах с которыми вы столкнулись используя приложение",
-                            size: "256"
-                        },
-                         {
+<script>
+    $(document).ready(function () {
+        Survey.Survey.cssType = "bootstrap";
+        var surveyJSON2 =
+            {
+                pages: [{
+                    name: "page1",
+                    questions: [{
+                        type: "html",
+                        html: "Добрый день! Проект Poporo посвящен повышению удовлетворенности клиентов. С помощью этого краткого обзора, ваши ответы будут полезны в улучшении наших услуг и удовлетворения ваших потребностей. Ваш ответ будет использоваться только для целей обследования.",
+                        name: "question0"
+                    }, {
+                        type: "text",
+                        commentText: "W",
+                        name: "question1",
+                        size: "2",
+                        title: "Оцените этот проект от 0 до 10 .",
+                        validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
+                    }, {
+                        type: "comment",
+                        title: "Кратко опишите ваш опыт в этом проекте ?",
+                        name: "question2",
+                        validators: [{type: "text", maxLength: "256"}]
+                    }, {
+                        type: "text",
+                        title: "Расскажите о проблемах с которыми вы столкнулись используя приложение",
+                        name: "question3",
+                        size: "256"
+                    },
+                        {
                             type: "radiogroup",
                             choices: [{value: "1", text: "Никогда"}, {value: "2", text: "Иногда"}, {
                                 value: "3",
                                 text: "Часто"
                             }],
-                            name: "question6",
+                            name: "question4",
                             title: "Как часто вы бы хотели использовать этот сервис ?"
-                        },{
+                        }, {
                             type: "radiogroup",
                             choices: [{value: "1", text: "Да"}, {value: "2", text: "Нет"}],
-                            name: "question2",
+                            name: "question5",
                             title: "Будите ли вы рекомендовать этот проект своим друзьям ?"
                         }]
                     }]
                 }
 
           
-    
-            function sendDataToServer(survey) {
-                //send Ajax request to your web server.
-                data = JSON.stringify(survey.data)
-                $.post("/", {data: data})
-	    	$("#langs").hide()
-                console.log("The results are:" + JSON.stringify(survey.data));
-                return false;
-            }
+   	 
 
-            var survey = new Survey.Model(surveyJSON2);
-            $("#surveyContainerRus").Survey({
-                model: survey,
-                onComplete: sendDataToServer
-            });
-        })
-    </script>
+        function sendDataToServer(survey) {
+            //send Ajax request to your web server.
+            data = JSON.stringify(survey.data)
+            $.post("/", {data: data})
+	    $("#langs").hide()
+            console.log("The results are:" + JSON.stringify(survey.data));
+            return false;
+        }
 
-    <script>
+        var survey = new Survey.Model(surveyJSON2);
+        $("#surveyContainerRus").Survey({
+            model: survey,
+            onComplete: sendDataToServer
+        });
+    })
+</script>
 
-
+<script>
 
 
     $(document).ready(function () {
         $("#go_trans").click(function () {
-	if($("#surveyContainer").offsetParent){
+            if ($("#surveyContainer").offsetParent) {
                 $("#surveyContainer").hide("fast")
                 $("#surveyContainerRus").show("fast")
-            }else {
-                 $("#surveyContainerRus").hide("fast")
+            } else {
+                $("#surveyContainerRus").hide("fast")
                 $("#surveyContainer").show("fast")
-            }            
-           
+            }
+
         })
 
     })
 
 </script>
-   <script>
-
+<script>
 
 
     $(document).ready(function () {
         $("#go_trans_en").click(function () {
-            if($("#surveyContainerRus").offsetParent){
+            if ($("#surveyContainerRus").offsetParent) {
                 $("#surveyContainerRus").hide("fast")
                 $("#surveyContainer").show("fast")
-            }else {
-                 $("#surveyContainer").hide("fast")
+            } else {
+                $("#surveyContainer").hide("fast")
                 $("#surveyContainerRus").show("fast")
             }
-           
+
         })
 
     })
