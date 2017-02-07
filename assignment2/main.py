@@ -38,7 +38,7 @@ class MainPage(webapp2.RequestHandler):
 
 
 class Clear(webapp2.RequestHandler):
-    def post(self):
+    def get(self):
         greetings_query = Greeting.query(
             ancestor=guestbook_key()).fetch(keys_only=True)
         ndb.delete_multi(greetings_query)
@@ -49,7 +49,7 @@ class Results(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('results.html')
         all_data = Greeting.query(ancestor=guestbook_key()).fetch()
-        result = {}
+        result = {"data": [], "statistics": {}}
         if all_data.__len__() > 0:
             responses = [json.loads(d.content) for d in all_data]
 
