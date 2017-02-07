@@ -81,8 +81,8 @@ class Results(webapp2.RequestHandler):
                     row[names[k]] = v
                 renamed_responses.append(row)
 
-            statistics = {'mean': mean, 'Distribution of answers on "How often would you like to use this service?"': question4_distribution,
-                          'Distribution of answers on "Would you recommend this project to your friends ?"': question5_distribution}
+            statistics = {'mean': mean, 'Distribution_of_answers_on___would_you_like': question4_distribution,
+                          'Distribution_of_answers_on___recommend': question5_distribution}
             result = {"data": renamed_responses, "statistics": statistics}
         self.response.out.write(template.render(entries=result))
 
