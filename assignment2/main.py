@@ -49,26 +49,29 @@ class Results(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('results.html')
         all_data = Greeting.query(ancestor=guestbook_key()).fetch()
-        responses = [json.loads(d.content) for d in all_data]
+        if all_data.__len__() > 0:
+            responses = [json.loads(d.content) for d in all_data]
 
-        mean = 0
-        question2_distribution = {u"1": 0, u"2": 0, u"3": 0}
-        question6_distribution = {u"1": 0, u"2": 0}
-        for r in responses:
-            mean += int(r.get('question4'))
-            question2_distribution[r.get('question2')] += 1
-            question6_distribution[r.get('question6')] += 1
+            mean = 0
+            question2_distribution = {u"1": 0, u"2": 0, u"3": 0}
+            question6_distribution = {u"1": 0, u"2": 0}
+            for r in responses:
+                mean += int(r.get('question4'))
+                question2_distribution[r.get('question2')] += 1
+                question6_distribution[r.get('question6')] += 1
 
-        count = responses.__len__() * 1.0
-        mean = mean / count
-        for k in question2_distribution.keys():
-            question2_distribution[k] = question2_distribution[k] / count
+            count = responses.__len__() * 1.0
+            mean = mean / count
+            for k in question2_distribution.keys():
+                question2_distribution[k] = question2_distribution[k] / count
 
-        for k in question6_distribution.keys():
-            question6_distribution[k] = question6_distribution[k] / count
+            for k in question6_distribution.keys():
+                question6_distribution[k] = question6_distribution[k] / count
 
-        responses.append({'mean': mean, 'question2_distribution': question2_distribution,
-                          'question6_distribution': question6_distribution})
+            responses.append({'mean': mean, 'question2_distribution': question2_distribution,
+                              'question6_distribution': question6_distribution})
+        else:
+            responses = []
         self.response.out.write(template.render(entries=responses))
 
 
