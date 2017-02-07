@@ -49,6 +49,7 @@ class Results(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('results.html')
         all_data = Greeting.query(ancestor=guestbook_key()).fetch()
+        result = {}
         if all_data.__len__() > 0:
             responses = [json.loads(d.content) for d in all_data]
 
@@ -68,11 +69,10 @@ class Results(webapp2.RequestHandler):
             for k in question6_distribution.keys():
                 question6_distribution[k] = question6_distribution[k] / count
 
-            responses.append({'mean': mean, 'question2_distribution': question2_distribution,
-                              'question6_distribution': question6_distribution})
-        else:
-            responses = []
-        self.response.out.write(template.render(entries=responses))
+            statistics = {'mean': mean, 'question2_distribution': question2_distribution,
+                          'question6_distribution': question6_distribution}
+            result = {"data": responses, "statistics": statistics}
+        self.response.out.write(template.render(entries=result))
 
 
 def handle_404(request, response, exception):
