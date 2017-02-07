@@ -69,8 +69,7 @@ class Results(webapp2.RequestHandler):
 
         responses.append({'mean': mean, 'question2_distribution': question2_distribution,
                           'question6_distribution': question6_distribution})
-        print(responses)
-        self.response.out.write(template.render(entries=None))
+        self.response.out.write(template.render(entries=responses))
 
 
 def handle_404(request, response, exception):
