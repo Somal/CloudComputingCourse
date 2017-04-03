@@ -17,4 +17,12 @@ def main(request):
 
 
 def results(request):
-    return render(request, 'results.html', content={'entries': {'data': []}})
+    max_id = Voice.get_max_id()
+    data = []
+    for id in range(max_id + 1):
+        rows = Voice.objects.filter(voice_id=id)
+        data.append({r.key: r.value for r in rows})
+
+    mean = 0
+    statistics = {}
+    return render(request, 'results.html', context={'data': data, 'mean': 0, 'statistics': {}})
