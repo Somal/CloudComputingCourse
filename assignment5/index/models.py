@@ -7,4 +7,5 @@ class Voice(models.Model):
     value = models.CharField(max_length=100)
 
     def get_max_id():
-        return Voice.objects.all().order_by('-voice_id').first().voice_id
+        last_obj = Voice.objects.all().order_by('-voice_id').first()
+        return last_obj.voice_id if last_obj is not None else 0
