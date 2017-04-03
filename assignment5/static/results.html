@@ -1,0 +1,93 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="login_form">
+    <br>
+    Username: <input type="text" id="username"><br>
+    <br>
+    Password: <input type="password" id="pass"><br>
+    <input type="button" id="go" value="Login">
+</div>
+
+<div id="data" style="display:none">
+{% for item in entries['data'] %}
+<div>
+  <ul>
+      {% for key, value in item.iteritems() %}
+            <li>{{ key }} : {{ value }} </li>
+      {% endfor %}
+  <ul>
+  
+<hr>
+</div>
+{% endfor %}
+
+<div id="meta">
+  Mean: {{ entries['statistics']['mean'] }} <br> <hr>
+  {% for key, value in entries['statistics'].iteritems() %}
+     {% if key != 'mean' %}
+       {{ key }}: 
+	<ul> 
+       {% for k, v in value.iteritems() %}
+         <li>{{ k }} : {{ v*100 }}%</li>
+       {% endfor %}
+	</ul>
+       <hr>
+     {% endif %}
+
+  {% endfor %}
+</div>
+
+<div id="charts">
+{% for key, value in entries['statistics'].iteritems() %}
+	{% if key != 'mean' %}
+		<div id="piechart_{{key}}"></div>
+	{% endif %}
+{% endfor %}
+</div>
+
+</div>
+ <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+	{% for key, value in entries['statistics'].iteritems() %}
+		{% if key != 'mean' %}
+        		var data = google.visualization.arrayToDataTable([
+          			['{{key}}', 'Occurence'],
+				{% for k, v in value.iteritems() %}
+          				['{{k}}',     {{v}}],
+
+				{% endfor %}
+        		]);
+
+        		var options = {
+          			title: '{{key}}'
+        		};
+
+        		var chart = new google.visualization.PieChart(document.getElementById('piechart_{{key}}'));
+
+        		chart.draw(data, options);
+		{% endif %}
+	{% endfor %}
+      }
+    </script>
+<script>
+    $(document).ready(function () {
+
+	$("input").attr("spellcheck", "true");
+	$("textarea").attr("spellcheck", "true");
+        $("#go").click(function () {
+            var uname = $("#username").val()
+            var pass = $("#pass").val()
+            console.log(uname, pass)
+            if (uname == 'root' && pass == 'root') {
+                $("#login_form").hide("fast")
+                $("#data").show("fast")
+            } else
+                alert("Wrong credentials")
+        })
+
+    })
+
+</script>
