@@ -19,6 +19,7 @@ from index.views import *
 # import inde
 
 urlpatterns = [
-                  # url(r'^admin/', admin.site.urls),
-                  url(r'^$', main),
-              ] #+ static(STATIC_URL, document_root=STATIC_ROOT)
+    # url(r'^admin/', admin.site.urls),
+    url(r'^$', main),
+    url(r'^results/$', results),
+]  # + static(STATIC_URL, document_root=STATIC_ROOT)

@@ -6,3 +6,7 @@ def main(request):
     if request.method == 'POST':
         print(request.POST)
     return render(request, 'index.html')
+
+
+def results(request):
+    return render(request, 'results.html', content={'entries': {'data': []}})
