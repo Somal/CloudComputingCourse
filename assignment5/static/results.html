@@ -30,7 +30,7 @@
         {{ key }}:
         <ul>
             {% for k, v in value.items %}
-            <li>{{ k }} : {{ v*100 }}%</li>
+            <li>{{ k }} : {{ v }}%</li>
             {% endfor %}
         </ul>
         <hr>
@@ -48,6 +48,25 @@
         <!--</div>-->
 
     </div>
+    <script>
+    $(document).ready(function () {
+
+    $("input").attr("spellcheck", "true");
+    $("textarea").attr("spellcheck", "true");
+    $("#go").click(function () {
+    var uname = $("#username").val()
+    var pass = $("#pass").val()
+    console.log(uname, pass)
+    if (uname == 'root' && pass == 'root') {
+    $("#login_form").hide("fast")
+    $("#data").show("fast")
+    } else
+    alert("Wrong credentials")
+    })
+
+    })
+
+    </script>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -83,23 +102,4 @@
                 endfor %
             }
         }
-    </script>
-    <script>
-        $(document).ready(function () {
-
-            $("input").attr("spellcheck", "true");
-            $("textarea").attr("spellcheck", "true");
-            $("#go").click(function () {
-                var uname = $("#username").val()
-                var pass = $("#pass").val()
-                console.log(uname, pass)
-                if (uname == 'root' && pass == 'root') {
-                    $("#login_form").hide("fast")
-                    $("#data").show("fast")
-                } else
-                    alert("Wrong credentials")
-            })
-
-        })
-
     </script>
