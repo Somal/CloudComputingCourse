@@ -71,20 +71,14 @@
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-            {%
-                for key, value in entries['statistics'].iteritems() %}
-            {%
-                if key != 'mean' %}
+            {% for key, value in statistics.items %}
+            {% if key != 'mean' %}
             var data = google.visualization.arrayToDataTable([
                 ['{{key}}', 'Occurence'],
-                { % for k, v in value.iteritems() %
-        }
-            ['{{k}}', {{v}
-        }],
+                {% for k, v in value.items %}
+                    ['{{k}}', {{ v }}],
 
-            {%
-                endfor %
-            }
+                {% endfor %}
         ])
             ;
 
@@ -95,11 +89,7 @@
             var chart = new google.visualization.PieChart(document.getElementById('piechart_{{key}}'));
 
             chart.draw(data, options);
-            {%
-                endif %
-            }
-            {%
-                endfor %
-            }
+            {% endif %}
+            {% endfor %}
         }
     </script>
