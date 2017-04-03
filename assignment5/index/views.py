@@ -23,6 +23,7 @@ def results(request):
         rows = Voice.objects.filter(voice_id=id)
         data.append({r.key: r.value for r in rows})
 
-    mean = 0
+    question1 = [int(v.value) for v in Voice.objects.filter(key='question1')]
+    mean = sum(question1) / len(question1) * 1.0
     statistics = {}
-    return render(request, 'results.html', context={'data': data, 'mean': 0, 'statistics': {}})
+    return render(request, 'results.html', context={'data': data, 'mean': mean, 'statistics': {}})

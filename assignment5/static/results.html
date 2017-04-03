@@ -26,7 +26,6 @@
         Mean: {{ mean }} <br>
         <hr>
         {% for key, value in statistics.items %}
-        {% if key != 'mean' %}
         {{ key }}:
         <ul>
             {% for k, v in value.items %}
@@ -34,16 +33,12 @@
             {% endfor %}
         </ul>
         <hr>
-        {% endif %}
-
         {% endfor %}
     </div>
 
     <div id="charts">
         {% for key, value in statistics.items %}
-        {% if key != 'mean' %}
         <div id="piechart_{{key}}"></div>
-        {% endif %}
         {% endfor %}
         <!--</div>-->
 
