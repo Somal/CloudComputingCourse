@@ -48,4 +48,17 @@ def results(request):
     statistics = {'Distribution_of_answers_on___would_you_like': question4_distribution,
                   'Distribution_of_answers_on___recommend': question5_distribution}
 
+    # Renaming
+    names = {"question1": "Rate this project form 0 to 10",
+             "question2": "Can you briefly describe your experience in this project?",
+             "question3": "Tell us about the issues you faced while using the application",
+             "question4": "How often would you like to use this service?",
+             "question5": "Would you recommend this project to your friends ?"}
+    renamed_data = []
+    for d in data:
+        tmp = {}
+        for k, v in d.items():
+            tmp[renamed_data[k]] = v
+        renamed_data.append(tmp)
+
     return render(request, 'results.html', context={'data': data, 'mean': mean, 'statistics': statistics})
