@@ -25,44 +25,48 @@ def results(request):
     data = []
     for id in range(max_id + 1):
         rows = Voice.objects.filter(voice_id=id)
-        data.append({r.key: r.value for r in rows})
+        if len(rows)>0:
+            data.append({r.key: r.value for r in rows})
 
-    question1 = [int(v.value) for v in Voice.objects.filter(key='question1')]
-    mean = sum(question1) / len(question1) * 1.0
+    context = {"data": [], "statistics": {}}
+    print(data)
+    if data.__len__() > 0:
+        question1 = [int(v.value) for v in Voice.objects.filter(key='question1')]
+        mean = sum(question1) / len(question1) * 1.0
 
-    # Statistics
-    # Question 4
-    question4_distribution = {"1": 0, "2": 0, "3": 0}
-    for voice in Voice.objects.filter(key='question4'):
-        question4_distribution[voice.value] += 1
+        # Statistics
+        # Question 4
+        question4_distribution = {"1": 0, "2": 0, "3": 0}
+        for voice in Voice.objects.filter(key='question4'):
+            question4_distribution[voice.value] += 1
 
-    question4_count = len(Voice.objects.filter(key='question4'))
-    for k in question4_distribution.keys():
-        question4_distribution[k] = question4_distribution[k] / question4_count
+        question4_count = len(Voice.objects.filter(key='question4'))
+        for k in question4_distribution.keys():
+            question4_distribution[k] = question4_distribution[k] / question4_count
 
-    # Question 5
-    question5_distribution = {"1": 0, "2": 0}
-    for voice in Voice.objects.filter(key='question5'):
-        question5_distribution[voice.value] += 1
+        # Question 5
+        question5_distribution = {"1": 0, "2": 0}
+        for voice in Voice.objects.filter(key='question5'):
+            question5_distribution[voice.value] += 1
 
-    question5_count = len(Voice.objects.filter(key='question5'))
-    for k in question5_distribution.keys():
-        question5_distribution[k] = question5_distribution[k] / question5_count
+        question5_count = len(Voice.objects.filter(key='question5'))
+        for k in question5_distribution.keys():
+            question5_distribution[k] = question5_distribution[k] / question5_count
 
-    statistics = {'Distribution_of_answers_on___would_you_like': question4_distribution,
-                  'Distribution_of_answers_on___recommend': question5_distribution}
+        statistics = {'Distribution_of_answers_on___would_you_like': question4_distribution,
+                      'Distribution_of_answers_on___recommend': question5_distribution}
 
-    # Renaming
-    names = {"question1": "Rate this project form 0 to 10",
-             "question2": "Can you briefly describe your experience in this project?",
-             "question3": "Tell us about the issues you faced while using the application",
-             "question4": "How often would you like to use this service?",
-             "question5": "Would you recommend this project to your friends ?"}
-    renamed_data = []
-    for d in data:
-        tmp = {}
-        for k, v in d.items():
-            tmp[names[k]] = v
-        renamed_data.append(tmp)
-
-    return render(request, 'results.html', context={'data': renamed_data, 'mean': mean, 'statistics': statistics})
+        # Renaming
+        names = {"question1": "Rate this project form 0 to 10",
+                 "question2": "Can you briefly describe your experience in this project?",
+                 "question3": "Tell us about the issues you faced while using the application",
+                 "question4": "How often would you like to use this service?",
+                 "question5": "Would you recommend this project to your friends ?"}
+        renamed_data = []
+        for d in data:
+            tmp = {}
+            for k, v in d.items():
+                tmp[names[k]] = v
+            renamed_data.append(tmp)
+        context = {'data': renamed_data, 'mean': mean, 'statistics': statistics}
+    return render(request, 'results.html', context=context)
