@@ -58,7 +58,7 @@ def results(request):
     for d in data:
         tmp = {}
         for k, v in d.items():
-            tmp[renamed_data[k]] = v
+            tmp[names[k]] = v
         renamed_data.append(tmp)
 
-    return render(request, 'results.html', context={'data': data, 'mean': mean, 'statistics': statistics})
+    return render(request, 'results.html', context={'data': renamed_data, 'mean': mean, 'statistics': statistics})
