@@ -25,5 +25,27 @@ def results(request):
 
     question1 = [int(v.value) for v in Voice.objects.filter(key='question1')]
     mean = sum(question1) / len(question1) * 1.0
-    statistics = {}
-    return render(request, 'results.html', context={'data': data, 'mean': mean, 'statistics': {}})
+
+    # Statistics
+    # Question 4
+    question4_distribution = {"1": 0, "2": 0, "3": 0}
+    for voice in Voice.objects.filter(key='question4'):
+        question4_distribution[voice.value] += 1
+
+    question4_count = len(Voice.objects.filter(key='question4'))
+    for k in question4_distribution.keys():
+        question4_distribution[k] = question4_distribution[k] / question4_count
+
+    # Question 5
+    question5_distribution = {"1": 0, "2": 0}
+    for voice in Voice.objects.filter(key='question5'):
+        question5_distribution[voice.value] += 1
+
+    question5_count = len(Voice.objects.filter(key='question5'))
+    for k in question5_distribution.keys():
+        question5_distribution[k] = question5_distribution[k] / question5_count
+
+    statistics = {'Distribution_of_answers_on___would_you_like': question4_distribution,
+                  'Distribution_of_answers_on___recommend': question5_distribution}
+
+    return render(request, 'results.html', context={'data': data, 'mean': mean, 'statistics': statistics})
