@@ -1,1 +1,2 @@
-appcfg.py -A $DEVSHELL_PROJECT_ID update .
+docker build -t web .
+docker run -p 8000:8000 web
