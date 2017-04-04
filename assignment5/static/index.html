@@ -31,14 +31,14 @@
                     commentText: "W",
                     name: "question1",
                     size: "2",
-                    title: "Rate this project form 0 to 10",
-                    validators: [{type: "numeric", maxValue: "10", minValue: "0"}]
+                    title: "Rate this project form 1 to 10",
+                    validators: [{type: "numeric", maxValue: "10", minValue: "1"}]
                 }, {
                     type: "comment",
                     isRequired: true,
                     title: " Can you briefly describe your experience in this project?",
                     name: "question2",
-                    validators: [{type: "text", maxLength: "256"}]
+                    validators: [{type: "text", minLength: "256"}]
                 }, {
                     type: "text",
                     isRequired: true,
@@ -46,14 +46,15 @@
                     name: "question3",
                     size: "256"
                 }, {
-                    type: "radiogroup",
+                    type: "checkbox",
                     isRequired: true,
-                    choices: [{value: "1", text: "Never"}, {value: "2", text: "Sometimes"}, {
-                        value: "3",
-                        text: "Often"
-                    }],
+                    choices: [
+                        {value: "1", text: "In transport"},
+                        {value: "2", text: "At home"},
+                        {value: "3", text: "At school"}
+                        ],
                     name: "question4",
-                    title: "How often would you like to use this service?"
+                    title: "Where would you like to use this service?"
                 }, {
                     type: "radiogroup",
                     isRequired: true,
