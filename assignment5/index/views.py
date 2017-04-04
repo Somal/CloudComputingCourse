@@ -12,7 +12,11 @@ def main(request):
         data = json.loads(data)
         voice_id = Voice.get_max_id() + 1
         for k, v in data.items():
-            Voice.objects.create(voice_id=voice_id, key=k, value=v)
+            if isinstance(v, list):
+                for vv in v:
+                    Voice.objects.create(voice_id=voice_id, key=k, value=vv)
+            else:
+                Voice.objects.create(voice_id=voice_id, key=k, value=v)
     return render(request, 'index.html')
 
 
